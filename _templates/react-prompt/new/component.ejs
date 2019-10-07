@@ -1,0 +1,74 @@
+---
+to: app/<%= h.inflection.dasherize(section.toLowerCase()) %>/<%= h.inflection.dasherize(name.toLowerCase()) %>/component.jsx
+---
+<% SectionName = h.inflection.dasherize(section.toLowerCase()) -%>
+<% ComponentName = h.inflection.dasherize(name.toLowerCase()) -%>
+<% ComponentClassName = h.inflection.camelize(name.split('-').join('_').split(' ').join('_')) -%>
+<% if(locals.redux) { -%>
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+<%}-%>
+<% if (locals.type === 'stateful' && locals.type !== 'functional') { -%>
+import React, { Component } from 'react'
+<% } else if (locals.type === 'functional') { -%>
+import React from 'react'
+<% } else { -%>
+import React, { PureComponent } from 'react'
+<%} -%>
+import PropTypes from 'prop-types'
+
+<% if(locals.styles) { -%>
+import styles from './styles.<%= styles %>'
+
+<%}-%>
+<% if(locals.redux) { -%>
+const mapStateToProps = store => ({ })
+
+const mapDispatchToProps = dispatch => ({ })
+<%}-%>
+<% if (locals.type !== 'functional' && locals.redux) { -%>
+
+@connect(mapStateToProps, mapDispatchToProps)
+<%}-%>
+<% if (locals.type === 'stateful') { -%>
+class <%= ComponentClassName %> extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render = () => {
+    return (
+      <div>Edit this component at app/<%= SectionName %>/<%= ComponentName %>/component.jsx</div>
+    )
+  }
+}
+<% } else if (locals.type === 'functional') { -%>
+
+const <%= ComponentClassName %> = props => <div>Edit this component at app/<%= SectionName %>/<%= ComponentName %>/component.jsx</div>
+<% } else { -%>
+class <%= ComponentClassName %> extends PureComponent {
+  constructor(props) {
+    super(props)
+  }
+
+  render = () => {
+    return (
+      <div>Edit this component at app/<%= SectionName %>/<%= ComponentName %>/component.jsx</div>
+    )
+  }
+}
+<% } -%>
+
+<%= ComponentClassName %>.propTypes = {
+
+}
+
+<%= ComponentClassName %>.defaultProps = {
+
+}
+
+<% if(locals.redux && locals.type === 'functional') { -%>
+export default connect(mapStateToProps, mapDispatchToProps)(<%= ComponentClassName %>)
+<% } else { -%>
+export default <%= ComponentClassName %>
+<%}-%>

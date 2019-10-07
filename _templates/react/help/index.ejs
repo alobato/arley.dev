@@ -1,0 +1,21 @@
+---
+message: |
+
+  hygen react new <flags>
+
+  Options:
+
+  --name <name>                                     Name of the component
+  --section <location>                              Name of the sub-folder. Valid paths can be passed.
+  --type [stateful|functional]                      Type of React component to be created. Defaults to 'pureComponent'
+  --redux                                           Add boilerplate for react-redux
+  --lazy                                            Make the generated component lazy (Async component)
+  --styles [css|scss|sass|less|styl]                Add stylesheet to the generated component. Defaults to 'none'
+
+  Examples:
+
+  hygen react new --name header --section components --redux --styles scss
+  hygen react new --name footer --section components --lazy --styles scss
+  hygen react new --name home --section pages --type stateful --redux --styles scss
+
+---
